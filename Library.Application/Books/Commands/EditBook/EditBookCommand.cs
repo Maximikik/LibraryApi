@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Library.Application.Books.Commands.EditBook;
 
-internal class EditBookCommand
+public class EditBookCommand: IRequest
 {
+    public Guid Id { get; set; }
+    public string ISBN { get; set; } = null!;
+    public string Name { get; set; } = null!;
+    public string Genre { get; set; } = null!;
+    public string Description { get; set; } = null!;
+    public string Author { get; set; } = null!;
+    public DateTime RentStart { get; set; }
+    public DateTime RentEnd { get; set; }
 }
