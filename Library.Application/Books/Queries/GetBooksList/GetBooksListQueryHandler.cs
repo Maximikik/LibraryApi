@@ -2,9 +2,9 @@
 
 namespace Library.Application.Books.Queries.GetBooksList;
 
-public class GetBooksListQueryHandler : IRequestHandler<GetBooksListQuery, BookVm>
+public class GetBooksListQueryHandler : IRequestHandler<GetBooksListQuery, BooksListVm>
 {
-    public async Task<BookVm> Handle(GetBooksListQuery request, CancellationToken cancellationToken)
+    public async Task<BooksListVm> Handle(GetBooksListQuery request, CancellationToken cancellationToken)
     {
         
     }
