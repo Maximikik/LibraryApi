@@ -1,8 +1,8 @@
-﻿namespace Library.Application.Books.Queries.GetBookById
-{
-    public class GetBookByISBNQuery
-    {
-        public Guid Id { get; set; }
+﻿using MediatR;
 
-    }
+namespace Library.Application.Books.Queries.GetBookByISBN;
+
+public class GetBookByISBNQuery: IRequest<BookVm>
+{
+    public string ISBN { get; set; } = null!;
 }

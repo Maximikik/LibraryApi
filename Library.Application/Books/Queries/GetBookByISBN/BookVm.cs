@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Library.Application.Common.Mapping;
 using Library.Domain;
-using MediatR;
 
-namespace Library.Application.Books.Queries.GetBookById;
-
+namespace Library.Application.Books.Queries.GetBookByISBN;
 public class BookVm : IMapWith<Book>
 {
     public Guid Id { get; set; }

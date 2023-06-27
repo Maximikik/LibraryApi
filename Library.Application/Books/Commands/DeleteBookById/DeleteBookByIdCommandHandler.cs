@@ -3,20 +3,20 @@ using Library.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Application.Books.Commands.DeleteBook
+namespace Library.Application.Books.Commands.DeleteBookById
 {
-    public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand>
+    public class DeleteBookByIdCommandHandler : IRequestHandler<DeleteBookByIdCommand>
     {
         private readonly ILibraryDbContext _libraryDbContext;
-        public DeleteBookCommandHandler(ILibraryDbContext context) =>
+        public DeleteBookByIdCommandHandler(ILibraryDbContext context) =>
             _libraryDbContext = context ?? throw new ArgumentNullException(nameof(context));
 
-        public async Task Handle(DeleteBookCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteBookByIdCommand request, CancellationToken cancellationToken)
         {
             var entity = await _libraryDbContext.Books
-                .FirstOrDefaultAsync(entity => entity.Id == request.Id && entity.ISBN == request.ISBN, cancellationToken);
+                .FirstOrDefaultAsync(entity => entity.Id == request.Id, cancellationToken);
 
-            if (entity == null || entity.ISBN != request.ISBN || entity.Id != request.Id)
+            if (entity == null || entity.Id != request.Id)
             {
                 throw new NotFoundException(request.Id.ToString());
             }
