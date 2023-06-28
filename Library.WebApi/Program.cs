@@ -3,6 +3,8 @@ using Library.Application.Interfaces;
 using System.Reflection;
 using Library.Application.Common.Mapping;
 using Library.Application;
+using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,7 @@ builder.Services.AddAutoMapper(config =>
 });
 
 builder.Services.AddApplication();
-builder.Services.AddPersistence(builder.Configuration.GetConnectionString("DbConnection"));
+builder.Services.AddPersistence(builder.Configuration.GetConnectionString("MsSqlExpress"));
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
@@ -34,16 +36,19 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+
+    app.UseSwaggerUI();
+
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
+    DbInitializer.Initialize(db);
+
+    var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
+    mapper.ConfigurationProvider.AssertConfigurationIsValid();
 }
 
 app.UseSwagger();
-//app.UseSwaggerUI(config =>
-//{
-//    config.RoutePrefix = string.Empty;
-//    config.SwaggerEndpoint("swagger/v1/swagger.json", "Web API");
-//});
 
-//app.UseCustomExceptionHandler();
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
@@ -54,6 +59,10 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
+
+app.MapControllers();
+
+app.Run();
 
 
 
@@ -73,8 +82,8 @@ app.UseEndpoints(endpoints =>
 //}
 
 //        host.Run();
-    
-    
+
+
 //    IHostBuilder CreateHostBuilder(string[] args) =>
 //            Host.CreateDefaultBuilder(args)
 //                .ConfigureWebHostDefaults(webBuilder =>
