@@ -35,8 +35,8 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
-
+    //app.UseDeveloperExceptionPage();
+    app.UseSwagger();
     app.UseSwaggerUI();
 
     using var scope = app.Services.CreateScope();
@@ -47,7 +47,7 @@ if (app.Environment.IsDevelopment())
     mapper.ConfigurationProvider.AssertConfigurationIsValid();
 }
 
-app.UseSwagger();
+
 
 app.UseRouting();
 app.UseHttpsRedirection();
