@@ -4,7 +4,6 @@ using System.Reflection;
 using Library.Application.Common.Mapping;
 using Library.Application;
 using AutoMapper;
-using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +14,12 @@ builder.Services.AddAutoMapper(config =>
 });
 
 builder.Services.AddApplication();
-builder.Services.AddPersistence(builder.Configuration.GetConnectionString("MsSqlExpress"));
+builder.Services.AddPersistence(builder.Configuration.GetConnectionString("MsSql"));
 builder.Services.AddControllers();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.CustomSchemaIds(type => type.ToString());
+});
 
 builder.Services.AddCors(options =>
 {
@@ -38,6 +41,7 @@ if (app.Environment.IsDevelopment())
     //app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
+
 
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
@@ -63,30 +67,3 @@ app.UseEndpoints(endpoints =>
 app.MapControllers();
 
 app.Run();
-
-
-
-//using (var scope = host.Services.CreateScope())
-//{
-//    var serviceProvider = scope.ServiceProvider;
-//    try
-//    {
-//        var context = serviceProvider.GetRequiredService<LibraryDbContext>();
-//        DbInitializer.Initialize(context);
-//    }
-//    catch (Exception exception)
-//    {
-//        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-//        logger.LogError(exception, "An error occurred while app initialization");
-//    }
-//}
-
-//        host.Run();
-
-
-//    IHostBuilder CreateHostBuilder(string[] args) =>
-//            Host.CreateDefaultBuilder(args)
-//                .ConfigureWebHostDefaults(webBuilder =>
-//                {
-//                    webBuilder.UseStartup<Startup>();
-//                });

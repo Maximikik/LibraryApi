@@ -18,7 +18,7 @@ public class BookController: BaseController
 
     public BookController(IMapper mapper) => _mapper = mapper;
 
-    [HttpGet]
+    [HttpGet("BooksList")]
     public async Task<ActionResult<BooksListVm>> GetAll()
     {
         var query = new GetBooksListQuery { };
@@ -27,9 +27,9 @@ public class BookController: BaseController
 
         return Ok(vm);
     }
-
-    [HttpGet]
-    public async Task<ActionResult<Application.Books.Queries.GetBookById.BookVm>> GetById(Guid id)
+    
+    [HttpGet("Id/{id}")]
+    public async Task<ActionResult<Application.Books.Queries.GetBookById.BookVm>> GetById(Guid id )
     {
         var query = new GetBookByIdQuery
         {
@@ -41,12 +41,12 @@ public class BookController: BaseController
         return Ok(vm);
     }
 
-    [HttpGet]
-    public async Task<ActionResult<Application.Books.Queries.GetBookByISBN.BookVm>> GetByISBN(string Isbn)
+    [HttpGet("ISBN/{ISBN}")]
+    public async Task<ActionResult<Application.Books.Queries.GetBookByISBN.BookVm>> GetByISBN(string ISBN)
     {
-        var query = new GetBookByISBNQuery 
+        var query = new GetBookByISBNQuery
         {
-            ISBN = Isbn
+            ISBN = ISBN
         };
 
         var vm = await Mediator.Send(query);
@@ -78,7 +78,7 @@ public class BookController: BaseController
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("Id/{id}")]
     public async Task<IActionResult> DeleteById(Guid id)
     {
         var command = new DeleteBookByIdCommand
@@ -93,7 +93,7 @@ public class BookController: BaseController
         return NoContent();
     }
 
-    [HttpDelete("{ISBN}")]
+    [HttpDelete("ISBN/{ISBN}")]
     public async Task<IActionResult> DeleteByISBN(string ISBN)
     {
         var command = new DeleteBookByISBNCommand

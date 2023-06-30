@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
+using Library.Application.Common.Mapping;
 using Library.Domain;
 
 namespace Library.Application.Books.Queries.GetBooksList;
 
-public class BookLookUpDto
+public class BookLookUpDto: IMapWith<Book>
 {
     public Guid Id { get; set; }
     public string ISBN { get; set; } = null!;
