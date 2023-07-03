@@ -10,5 +10,4 @@ public class Book
     public string Author { get; set; } = null!;
     public DateTime RentStart { get; set; }
     public DateTime RentEnd { get; set; }
-
 }

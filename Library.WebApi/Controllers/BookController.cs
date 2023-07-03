@@ -16,7 +16,8 @@ public class BookController: BaseController
 {
     private readonly IMapper _mapper;
 
-    public BookController(IMapper mapper) => _mapper = mapper;
+    public BookController(IMapper mapper) => 
+        _mapper = mapper;
 
     [HttpGet("BooksList")]
     public async Task<ActionResult<BooksListVm>> GetAll()

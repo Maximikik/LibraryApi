@@ -4,6 +4,7 @@ using System.Reflection;
 using Library.Application.Common.Mapping;
 using Library.Application;
 using AutoMapper;
+using Library.WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +39,6 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    //app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 
@@ -52,7 +52,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-
+app.UseCustomExceptionHandler();
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
