@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Library.Application.Books.Commands.CreateBook;
 using Library.Application.Books.Commands.EditBook;
 using Library.Application.Common.Mapping;
 

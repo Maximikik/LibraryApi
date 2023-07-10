@@ -6,6 +6,7 @@ using Library.Application;
 using AutoMapper;
 using Library.WebApi.Middleware;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAutoMapper(config =>
@@ -17,6 +18,7 @@ builder.Services.AddAutoMapper(config =>
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration.GetConnectionString("MsSql"));
 builder.Services.AddControllers();
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.CustomSchemaIds(type => type.ToString());

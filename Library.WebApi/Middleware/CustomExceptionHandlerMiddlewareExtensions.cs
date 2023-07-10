@@ -3,6 +3,6 @@
     public static class CustomExceptionHandlerMiddlewareExtensions
     {
         public static IApplicationBuilder UseCustomExceptionHandler(this IApplicationBuilder builder) =>
-            builder.UseMiddleware<CustomExceptionHandlerMiddleware>();  
+            builder.UseMiddleware<CustomExceptionHandlerMiddleware>();
     }
 }
