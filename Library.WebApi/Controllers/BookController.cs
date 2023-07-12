@@ -6,7 +6,7 @@ using Library.Application.Books.Commands.EditBook;
 using Library.Application.Books.Queries.GetBookById;
 using Library.Application.Books.Queries.GetBookByISBN;
 using Library.Application.Books.Queries.GetBooksList;
-using Library.WebApi.Models;
+using Library.WebApi.Models.Books;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.WebApi.Controllers;

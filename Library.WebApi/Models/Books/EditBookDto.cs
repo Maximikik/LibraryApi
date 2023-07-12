@@ -2,9 +2,9 @@
 using Library.Application.Books.Commands.EditBook;
 using Library.Application.Common.Mapping;
 
-namespace Library.WebApi.Models
+namespace Library.WebApi.Models.Books
 {
-    public class EditBookDto: IMapWith<EditBookCommand>
+    public class EditBookDto : IMapWith<EditBookCommand>
     {
         public Guid Id { get; set; }
         public string ISBN { get; set; } = null!;

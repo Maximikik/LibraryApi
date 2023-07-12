@@ -3,9 +3,9 @@ using Library.Application.Books.Commands.CreateBook;
 using Library.Application.Common.Mapping;
 using Library.Domain;
 
-namespace Library.WebApi.Models
+namespace Library.WebApi.Models.Books
 {
-    public class CreateBookDto: IMapWith<CreateBookCommand>
+    public class CreateBookDto : IMapWith<CreateBookCommand>
     {
         public Guid Id { get; set; }
         public string ISBN { get; set; } = null!;
