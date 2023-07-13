@@ -4,7 +4,7 @@ using Library.Domain;
 
 namespace Library.Application.Books.Queries.GetBooksList;
 
-public class BookLookUpDto: IMapWith<Book>
+public class BookLookUpDataTransferObject: IMapWith<Book>
 {
     public Guid Id { get; set; }
     public string ISBN { get; set; } = null!;
@@ -17,7 +17,7 @@ public class BookLookUpDto: IMapWith<Book>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<Book, BookLookUpDto>()
+        profile.CreateMap<Book, BookLookUpDataTransferObject>()
             .ForMember(bookVm => bookVm.ISBN,
             vm => vm.MapFrom(book => book.ISBN))
             .ForMember(bookVm => bookVm.Name,

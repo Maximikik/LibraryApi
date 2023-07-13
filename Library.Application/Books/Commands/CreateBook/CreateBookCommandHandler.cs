@@ -15,7 +15,7 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Guid>
     {
         var book = new Book()
         {
-            Id = request.Id,
+            Id = Guid.NewGuid(),
             ISBN = request.ISBN,
             Name = request.Name,
             Author = request.Author,

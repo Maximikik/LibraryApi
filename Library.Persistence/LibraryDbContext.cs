@@ -8,6 +8,7 @@ namespace Library.Persistence;
 public class LibraryDbContext: DbContext, ILibraryDbContext
 {
     public DbSet<Book> Books { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public LibraryDbContext(DbContextOptions<LibraryDbContext> options): base(options)
     { }

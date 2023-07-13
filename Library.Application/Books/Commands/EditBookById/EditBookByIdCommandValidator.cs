@@ -2,9 +2,9 @@
 
 namespace Library.Application.Books.Commands.EditBook;
 
-public class EditBookCommandValidator: AbstractValidator<EditBookCommand>
+public class EditBookByIdCommandValidator: AbstractValidator<EditBookByIdCommand>
 {
-    public EditBookCommandValidator()
+    public EditBookByIdCommandValidator()
     {
         RuleFor(createBookCommand =>
             createBookCommand.Id).NotEqual(Guid.Empty);

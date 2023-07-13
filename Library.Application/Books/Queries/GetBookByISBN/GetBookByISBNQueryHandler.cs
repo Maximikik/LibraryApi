@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.Application.Books.Queries.GetBookByISBN;
 
-public class GetBookByISBNQueryHandler : IRequestHandler<GetBookByISBNQuery, BookVm>
+public class GetBookByISBNQueryHandler : IRequestHandler<GetBookByISBNQuery, BookViewModel>
 {
     private readonly ILibraryDbContext _libraryDbContext;
     private readonly IMapper _mapper;
@@ -14,7 +14,7 @@ public class GetBookByISBNQueryHandler : IRequestHandler<GetBookByISBNQuery, Boo
     public GetBookByISBNQueryHandler(ILibraryDbContext context, IMapper mapper) =>
         (_libraryDbContext, _mapper) = (context, mapper);
 
-    public async Task<BookVm> Handle(GetBookByISBNQuery request, CancellationToken cancellationToken)
+    public async Task<BookViewModel> Handle(GetBookByISBNQuery request, CancellationToken cancellationToken)
     {
         var entity = await _libraryDbContext.Books.
             FirstOrDefaultAsync(entity => entity.ISBN == request.ISBN, cancellationToken);
@@ -24,6 +24,6 @@ public class GetBookByISBNQueryHandler : IRequestHandler<GetBookByISBNQuery, Boo
             throw new NotFoundException();
         }
 
-        return _mapper.Map<BookVm>(entity);
+        return _mapper.Map<BookViewModel>(entity);
     }
 }

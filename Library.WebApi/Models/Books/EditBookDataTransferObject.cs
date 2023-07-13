@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using Library.Application.Books.Commands.CreateBook;
+using Library.Application.Books.Commands.EditBook;
 using Library.Application.Common.Mapping;
-using Library.Domain;
 
 namespace Library.WebApi.Models.Books
 {
-    public class CreateBookDto : IMapWith<CreateBookCommand>
+    public class EditBookDataTransferObject : IMapWith<EditBookByIdCommand>
     {
         public Guid Id { get; set; }
         public string ISBN { get; set; } = null!;
@@ -18,7 +17,7 @@ namespace Library.WebApi.Models.Books
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateBookDto, CreateBookCommand>()
+            profile.CreateMap<EditBookDataTransferObject, EditBookByIdCommand>()
                 .ForMember(bookCommand => bookCommand.ISBN,
                 opt => opt.MapFrom(book => book.ISBN))
                 .ForMember(bookCommand => bookCommand.Name,

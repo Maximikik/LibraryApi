@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Library.Application.Common.Mapping;
 using Library.Domain;
-using MediatR;
 
-namespace Library.Application.Books.Queries.GetBookById;
-
-public class BookVm : IMapWith<Book>
+namespace Library.Application.Books.Queries.GetBookByISBN;
+public class BookViewModel : IMapWith<Book>
 {
     public Guid Id { get; set; }
     public string ISBN { get; set; } = null!;
@@ -18,7 +16,7 @@ public class BookVm : IMapWith<Book>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<Book, BookVm>()
+        profile.CreateMap<Book, BookViewModel>()
             .ForMember(bookVm => bookVm.ISBN,
             vm => vm.MapFrom(book => book.ISBN))
             .ForMember(bookVm => bookVm.Name,

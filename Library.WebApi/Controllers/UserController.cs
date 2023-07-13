@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using Library.Application.Books.Commands.DeleteBookById;
 using Library.Application.Users.Commands.CreateUser;
+using Library.Application.Users.Commands.DeleteUser;
 using Library.Application.Users.Commands.EditUser;
+using Library.Application.Users.Queries;
 using Library.WebApi.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,11 +17,9 @@ public class UserController: BaseController
         _mapper = mapper;
 
     [HttpPost]
-    public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto createBookDto)
+    public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDataTransferObject createBookDto)
     {
         var command = _mapper.Map<CreateUserCommand>(createBookDto);
-
-        //command.UserId = UserId;
 
         var userId = await Mediator.Send(command);
 
@@ -28,29 +27,35 @@ public class UserController: BaseController
     }
 
     [HttpPut]
-    public async Task<IActionResult> Edit([FromBody] EditUserDto editBookDto)
+    public async Task<IActionResult> Edit([FromBody] EditUserDataTransferObject editBookDto)
     {
         var command = _mapper.Map<EditUserCommand>(editBookDto);
-
-        //command.UserId = UserId;
 
         await Mediator.Send(command);
 
         return NoContent();
     }
 
-    [HttpDelete("Id/{id}")]
-    public async Task<IActionResult> DeleteById(Guid id)
+    [HttpDelete]
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var command = new DeleteBookByIdCommand
+        var command = new DeleteUserCommand
         {
             Id = id
         };
 
-        //command.UserId = UserId;
-
         await Mediator.Send(command);
 
         return NoContent();
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<UsersListViewModel>> Get()
+    {
+        var query = new GetUsersListQuery { };
+
+        var usersListViewModel = await Mediator.Send(query);
+
+        return Ok(usersListViewModel);
     }
 }

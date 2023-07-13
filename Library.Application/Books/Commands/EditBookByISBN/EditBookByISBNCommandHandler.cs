@@ -3,22 +3,22 @@ using Library.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Application.Books.Commands.EditBook;
+namespace Library.Application.Books.Commands.EditBookByISBN;
 
-public class EditBookCommandHandler : IRequestHandler<EditBookCommand>
+public class EditBookByISBNCommandHandler : IRequestHandler<EditBookByISBNCommand>
 {
     private readonly ILibraryDbContext _libraryDbContext;
-    public EditBookCommandHandler(ILibraryDbContext context)
+    public EditBookByISBNCommandHandler(ILibraryDbContext context)
         => _libraryDbContext = context ?? throw new ArgumentNullException(nameof(context));
 
-    public async Task Handle(EditBookCommand request, CancellationToken cancellationToken)
+    public async Task Handle(EditBookByISBNCommand request, CancellationToken cancellationToken)
     {
         var entity = await _libraryDbContext.Books.
-            FirstOrDefaultAsync( entity => entity.Id == request.Id, cancellationToken );
+            FirstOrDefaultAsync(entity => entity.ISBN == request.ISBN, cancellationToken);
 
-        if (entity == null || entity.Id != request.Id)
+        if (entity == null || entity.ISBN != request.ISBN)
         {
-            throw new NotFoundException(request.Id.ToString());
+            throw new NotFoundException($"Book with ISBN \"{request.ISBN}\" is not found!");
         }
 
         entity.ISBN = request.ISBN;

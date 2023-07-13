@@ -2,5 +2,5 @@
 
 namespace Library.Application.Books.Queries.GetBooksList;
 
-public class GetBooksListQuery:  IRequest<BooksListVm>
+public class GetBooksListQuery:  IRequest<BooksListViewModel>
 { }

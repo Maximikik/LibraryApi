@@ -7,8 +7,6 @@ public class CreateBookCommandValidator: AbstractValidator<CreateBookCommand>
     public CreateBookCommandValidator()
     {
         RuleFor(createBookCommand =>
-            createBookCommand.Id).NotEqual(Guid.Empty);
-        RuleFor(createBookCommand =>
             createBookCommand.Author).NotEmpty().MaximumLength(250);
         RuleFor(createBookCommand =>
             createBookCommand.Name).NotEmpty().MaximumLength(250);

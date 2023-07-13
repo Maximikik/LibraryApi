@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Library.Application.Books.Commands.CreateBook;
+namespace Library.Application.Books.Commands.EditBookByISBN;
 
-public class CreateBookCommand : IRequest<Guid>
+public class EditBookByISBNCommand: IRequest
 {
     public string ISBN { get; set; } = null!;
     public string Name { get; set; } = null!;

@@ -20,47 +20,45 @@ public class BookController: BaseController
         _mapper = mapper;
 
     [HttpGet("BooksList")]
-    public async Task<ActionResult<BooksListVm>> GetAll()
+    public async Task<ActionResult<BooksListViewModel>> GetAll()
     {
         var query = new GetBooksListQuery { };
 
-        var vm = await Mediator.Send(query);
+        var booksViewModel = await Mediator.Send(query);
 
-        return Ok(vm);
+        return Ok(booksViewModel);
     }
     
     [HttpGet("Id/{id}")]
-    public async Task<ActionResult<Application.Books.Queries.GetBookById.BookVm>> GetById(Guid id )
+    public async Task<ActionResult<Application.Books.Queries.GetBookByISBN.BookViewModel>> GetById(Guid id )
     {
         var query = new GetBookByIdQuery
         {
             Id = id
         };
 
-        var vm = await Mediator.Send(query);
+        var bookViewModel = await Mediator.Send(query);
 
-        return Ok(vm);
+        return Ok(bookViewModel);
     }
 
     [HttpGet("ISBN/{ISBN}")]
-    public async Task<ActionResult<Application.Books.Queries.GetBookByISBN.BookVm>> GetByISBN(string ISBN)
+    public async Task<ActionResult<Application.Books.Queries.GetBookByISBN.BookViewModel>> GetByISBN(string ISBN)
     {
         var query = new GetBookByISBNQuery
         {
             ISBN = ISBN
         };
 
-        var vm = await Mediator.Send(query);
+        var bookViewModel = await Mediator.Send(query);
 
-        return Ok(vm);
+        return Ok(bookViewModel);
     }
 
     [HttpPost] 
-    public async Task<ActionResult<Guid>> Create([FromBody] CreateBookDto createBookDto)
+    public async Task<ActionResult<Guid>> Create([FromBody] CreateBookDataTransferObject createBookDto)
     {
         var command = _mapper.Map<CreateBookCommand>(createBookDto);
-
-        //command.UserId = UserId;
 
         var bookId = await Mediator.Send(command);
 
@@ -68,11 +66,9 @@ public class BookController: BaseController
     }
 
     [HttpPut]
-    public async Task<IActionResult> Edit([FromBody] EditBookDto editBookDto)
+    public async Task<IActionResult> Edit([FromBody] EditBookDataTransferObject editBookDto)
     {
-        var command = _mapper.Map<EditBookCommand>(editBookDto);
-
-        //command.UserId = UserId;
+        var command = _mapper.Map<EditBookByIdCommand>(editBookDto);
 
         await Mediator.Send(command);
 
@@ -87,8 +83,6 @@ public class BookController: BaseController
             Id = id
         };
 
-        //command.UserId = UserId;
-
         await Mediator.Send(command);
 
         return NoContent();
@@ -101,8 +95,6 @@ public class BookController: BaseController
         {
             ISBN = ISBN
         };
-
-        //command.UserId = UserId;
 
         await Mediator.Send(command);
 

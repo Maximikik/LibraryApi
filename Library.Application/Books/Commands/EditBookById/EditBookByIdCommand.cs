@@ -2,7 +2,7 @@
 
 namespace Library.Application.Books.Commands.EditBook;
 
-public class EditBookCommand: IRequest
+public class EditBookByIdCommand: IRequest
 {
     public Guid Id { get; set; }
     public string ISBN { get; set; } = null!;

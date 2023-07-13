@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.Application.Books.Queries.GetBooksList;
 
-public class GetBooksListQueryHandler : IRequestHandler<GetBooksListQuery, BooksListVm>
+public class GetBooksListQueryHandler : IRequestHandler<GetBooksListQuery, BooksListViewModel>
 {
     private readonly ILibraryDbContext _libraryDbContext;
     private readonly IMapper _mapper;
     public GetBooksListQueryHandler(ILibraryDbContext context, IMapper mapper) =>
         (_libraryDbContext, _mapper) = (context, mapper);
-    public async Task<BooksListVm> Handle(GetBooksListQuery request, CancellationToken cancellationToken)
+    public async Task<BooksListViewModel> Handle(GetBooksListQuery request, CancellationToken cancellationToken)
     {
         var booksList = await _libraryDbContext.Books
-            .ProjectTo<BookLookUpDto>(_mapper.ConfigurationProvider)
+            .ProjectTo<BookLookUpDataTransferObject>(_mapper.ConfigurationProvider)
             .ToListAsync();
 
-        return new BooksListVm { Books = booksList };
+        return new BooksListViewModel { Books = booksList };
     }
 }

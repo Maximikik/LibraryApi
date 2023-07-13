@@ -3,7 +3,7 @@ using Library.Domain;
 
 namespace Library.Application.Books.Queries.GetBooksList;
 
-public class BooksListVm: IMapWith<Book>
+public class BooksListViewModel: IMapWith<Book>
 {
-    public IList<BookLookUpDto>? Books { get; set; } 
+    public IList<BookLookUpDataTransferObject>? Books { get; set; } 
 }

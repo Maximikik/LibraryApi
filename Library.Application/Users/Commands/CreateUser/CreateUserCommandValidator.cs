@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace Library.Application.Users.Commands.CreateUser
+namespace Library.Application.Users.Commands.CreateUser;
+
+public class CreateUserCommandValidator: AbstractValidator<CreateUserCommand>
 {
-    internal class CreateUserCommandValidator
+    public CreateUserCommandValidator()
     {
+        RuleFor(user => user.Password).MinimumLength(6).MaximumLength(20);
     }
 }
