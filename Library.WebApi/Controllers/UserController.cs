@@ -21,7 +21,7 @@ public class UserController: BaseController
     {
         var command = _mapper.Map<CreateUserCommand>(createBookDto);
 
-        var userId = await Mediator.Send(command);
+        var userId = await Mediator!.Send(command);
 
         return Ok(userId);
     }
@@ -31,7 +31,7 @@ public class UserController: BaseController
     {
         var command = _mapper.Map<EditUserCommand>(editBookDto);
 
-        await Mediator.Send(command);
+        await Mediator!.Send(command);
 
         return NoContent();
     }
@@ -44,7 +44,7 @@ public class UserController: BaseController
             Id = id
         };
 
-        await Mediator.Send(command);
+        await Mediator!.Send(command);
 
         return NoContent();
     }
@@ -54,7 +54,7 @@ public class UserController: BaseController
     {
         var query = new GetUsersListQuery { };
 
-        var usersListViewModel = await Mediator.Send(query);
+        var usersListViewModel = await Mediator!.Send(query);
 
         return Ok(usersListViewModel);
     }

@@ -50,7 +50,7 @@ public class BookController: BaseController
             ISBN = ISBN
         };
 
-        var bookViewModel = await Mediator.Send(query);
+        var bookViewModel = await Mediator!.Send(query);
 
         return Ok(bookViewModel);
     }
@@ -60,7 +60,7 @@ public class BookController: BaseController
     {
         var command = _mapper.Map<CreateBookCommand>(createBookDto);
 
-        var bookId = await Mediator.Send(command);
+        var bookId = await Mediator!.Send(command);
 
         return Ok(bookId);
     }
@@ -70,7 +70,7 @@ public class BookController: BaseController
     {
         var command = _mapper.Map<EditBookByIdCommand>(editBookDto);
 
-        await Mediator.Send(command);
+        await Mediator!.Send(command);
 
         return NoContent();
     }
@@ -83,7 +83,7 @@ public class BookController: BaseController
             Id = id
         };
 
-        await Mediator.Send(command);
+        await Mediator!.Send(command);
 
         return NoContent();
     }
@@ -96,7 +96,7 @@ public class BookController: BaseController
             ISBN = ISBN
         };
 
-        await Mediator.Send(command);
+        await Mediator!.Send(command);
 
         return NoContent();
     }
