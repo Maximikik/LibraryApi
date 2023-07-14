@@ -19,7 +19,7 @@ public class BookController: BaseController
     public BookController(IMapper mapper) => 
         _mapper = mapper;
 
-    [HttpGet("BooksList")]
+    [HttpGet]
     public async Task<ActionResult<BooksListViewModel>> GetAll()
     {
         var query = new GetBooksListQuery { };
@@ -29,7 +29,7 @@ public class BookController: BaseController
         return Ok(booksViewModel);
     }
     
-    [HttpGet("Id/{id}")]
+    [HttpGet("{id}")]
     public async Task<ActionResult<Application.Books.Queries.GetBookByISBN.BookViewModel>> GetById(Guid id )
     {
         var query = new GetBookByIdQuery
@@ -42,7 +42,7 @@ public class BookController: BaseController
         return Ok(bookViewModel);
     }
 
-    [HttpGet("ISBN/{ISBN}")]
+    [HttpGet("{ISBN}")]
     public async Task<ActionResult<Application.Books.Queries.GetBookByISBN.BookViewModel>> GetByISBN(string ISBN)
     {
         var query = new GetBookByISBNQuery
@@ -75,7 +75,7 @@ public class BookController: BaseController
         return NoContent();
     }
 
-    [HttpDelete("Id/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteById(Guid id)
     {
         var command = new DeleteBookByIdCommand
@@ -88,7 +88,7 @@ public class BookController: BaseController
         return NoContent();
     }
 
-    [HttpDelete("ISBN/{ISBN}")]
+    [HttpDelete("{ISBN}")]
     public async Task<IActionResult> DeleteByISBN(string ISBN)
     {
         var command = new DeleteBookByISBNCommand

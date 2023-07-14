@@ -36,7 +36,7 @@ public class UserController: BaseController
         return NoContent();
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var command = new DeleteUserCommand
