@@ -5,7 +5,8 @@ using Library.Application.Common.Mapping;
 using Library.Application;
 using AutoMapper;
 using Library.WebApi.Middleware;
-
+using Microsoft.OpenApi.Models;
+using Library.WebApi.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,10 +20,39 @@ builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration.GetConnectionString("MsSql"));
 builder.Services.AddControllers();
 
-builder.Services.AddSwaggerGen(options =>
-{
-    options.CustomSchemaIds(type => type.ToString());
-});
+//builder.Services.AddJwtToken(builder.Configuration);
+
+builder.Services.AddConfiguredSwagger();
+
+//builder.Services.AddSwaggerGen(option =>
+//{
+//    option.CustomSchemaIds(type => type.ToString());
+
+//    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Library API", Version = "v1" });
+//    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+//    {
+//        In = ParameterLocation.Header,
+//        Description = "Please enter a valid token",
+//        Name = "Authorization",
+//        Type = SecuritySchemeType.Http,
+//        BearerFormat = "JWT",
+//        Scheme = "Bearer"
+//    });
+//    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+//    {
+//        {
+//            new OpenApiSecurityScheme
+//            {
+//                Reference = new OpenApiReference
+//                {
+//                    Type=ReferenceType.SecurityScheme,
+//                    Id="Bearer"
+//                }
+//            },
+//            new string[]{}
+//        }
+//    });
+//});
 
 builder.Services.AddCors(options =>
 {
@@ -44,7 +74,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 
-
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
     DbInitializer.Initialize(db);
@@ -57,7 +86,9 @@ if (app.Environment.IsDevelopment())
 app.UseCustomExceptionHandler();
 app.UseRouting();
 app.UseHttpsRedirection();
+
 app.UseCors("AllowAll");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
