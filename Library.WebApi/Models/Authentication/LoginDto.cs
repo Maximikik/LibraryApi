@@ -11,7 +11,7 @@ public class LoginDto
     public void Mapping(Profile profile)
     {
         profile.CreateMap<LoginDto, IdentityUser>()
-                .ForMember(to => to.UserName,
+                .ForMember(to => to.Email,
                     by => by.MapFrom(from => from.Email))
                 .ForMember(to => to.PasswordHash,
                     by => by.MapFrom(from => from.Password));

@@ -1,16 +1,19 @@
 ﻿using Library.WebApi.Models.Authentication;
 using Library.WebApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[AllowAnonymous]
 public class AuthenticationController : BaseController
 {
-    public readonly AuthService _authService;
+    private readonly AuthService _authService;
 
-    public AuthenticationController(AuthService authService) =>
+    public AuthenticationController(AuthService authService)
+    {
         _authService = authService;
+    }
 
     [HttpPost("Login")]
     public async Task<ActionResult<object>> Login([FromBody] LoginDto request)

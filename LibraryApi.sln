@@ -9,15 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{10ED9DA5-C513-4EEC-9BBC-40F7C60645D2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1466B7F4-6014-4384-8AA9-72D8B090BF38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Domain", "Library.Domain\Library.Domain.csproj", "{466AE3B8-2B69-45F1-96BF-43219577EA09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Domain", "Library.Domain\Library.Domain.csproj", "{466AE3B8-2B69-45F1-96BF-43219577EA09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Application", "Library.Application\Library.Application.csproj", "{BD2E8B02-6CC5-4D5B-8649-CDD7E7F2FFDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Application", "Library.Application\Library.Application.csproj", "{BD2E8B02-6CC5-4D5B-8649-CDD7E7F2FFDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Persistence", "Library.Persistence\Library.Persistence.csproj", "{7CCF4281-281A-44F6-8E8A-D936B58191A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Persistence", "Library.Persistence\Library.Persistence.csproj", "{7CCF4281-281A-44F6-8E8A-D936B58191A9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.WebApi", "Library.WebApi\Library.WebApi.csproj", "{5E7E8347-F1A0-4669-9C62-3623F9D5C313}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.WebApi", "Library.WebApi\Library.WebApi.csproj", "{5E7E8347-F1A0-4669-9C62-3623F9D5C313}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

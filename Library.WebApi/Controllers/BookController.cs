@@ -56,7 +56,7 @@ public class BookController: BaseController
     }
 
     [HttpPost] 
-    public async Task<ActionResult<Guid>> Create([FromBody] CreateBookDataTransferObject createBookDto)
+    public async Task<ActionResult<Guid>> Create([FromBody] CreateBookDto createBookDto)
     {
         var command = _mapper.Map<CreateBookCommand>(createBookDto);
 
@@ -66,7 +66,7 @@ public class BookController: BaseController
     }
 
     [HttpPut]
-    public async Task<IActionResult> Edit([FromBody] EditBookDataTransferObject editBookDto)
+    public async Task<IActionResult> Edit([FromBody] EditBookDto editBookDto)
     {
         var command = _mapper.Map<EditBookByIdCommand>(editBookDto);
 

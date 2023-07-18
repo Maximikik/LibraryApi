@@ -7,6 +7,7 @@ using AutoMapper;
 using Library.WebApi.Middleware;
 using Microsoft.OpenApi.Models;
 using Library.WebApi.Helpers;
+using Library.WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,52 +21,26 @@ builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration.GetConnectionString("MsSql"));
 builder.Services.AddControllers();
 
-//builder.Services.AddJwtToken(builder.Configuration);
+builder.Services.AddConfiguredCors();
+
+builder.Services.AddJwtToken(builder.Configuration);
+builder.Services.AddConfiguredIdentityCore();
 
 builder.Services.AddConfiguredSwagger();
 
-//builder.Services.AddSwaggerGen(option =>
-//{
-//    option.CustomSchemaIds(type => type.ToString());
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
+builder.Services.AddHttpContextAccessor();
 
-//    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Library API", Version = "v1" });
-//    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAll", policy =>
 //    {
-//        In = ParameterLocation.Header,
-//        Description = "Please enter a valid token",
-//        Name = "Authorization",
-//        Type = SecuritySchemeType.Http,
-//        BearerFormat = "JWT",
-//        Scheme = "Bearer"
-//    });
-//    option.AddSecurityRequirement(new OpenApiSecurityRequirement
-//    {
-//        {
-//            new OpenApiSecurityScheme
-//            {
-//                Reference = new OpenApiReference
-//                {
-//                    Type=ReferenceType.SecurityScheme,
-//                    Id="Bearer"
-//                }
-//            },
-//            new string[]{}
-//        }
+//        policy.AllowAnyHeader();
+//        policy.AllowAnyMethod();
+//        policy.AllowAnyOrigin();
 //    });
 //});
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
-        policy.AllowAnyOrigin();
-    });
-});
-
-
-
 
 var app = builder.Build();
 
@@ -85,17 +60,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseCustomExceptionHandler();
 app.UseRouting();
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllers();
+//});
 
 app.MapControllers();
 

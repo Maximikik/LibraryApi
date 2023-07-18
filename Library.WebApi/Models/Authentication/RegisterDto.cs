@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Library.WebApi.Models.Authentication;
 
-public class RegisterDto
+public class RegisterDto 
 {
     public string Email { get; set; } = null!;
     public string Password { get; set; } = null!;
@@ -12,9 +12,11 @@ public class RegisterDto
     public void Mapping(Profile profile)
     {
         profile.CreateMap<RegisterDto, IdentityUser>()
-                .ForMember(to => to.UserName,
+                .ForMember(to => to.Email,
                     by => by.MapFrom(from => from.Email))
                 .ForMember(to => to.PasswordHash,
-                    by => by.MapFrom(from => from.Password));
+                    by => by.MapFrom(from => from.Password))
+                 .ForMember(to => to.PasswordHash,
+                    by => by.MapFrom(from => from.ConfirmPassword));
     }
 }
