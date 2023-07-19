@@ -1,21 +1,14 @@
 using Library.Persistence;
 using Library.Application.Interfaces;
-using System.Reflection;
-using Library.Application.Common.Mapping;
 using Library.Application;
 using AutoMapper;
 using Library.WebApi.Middleware;
-using Microsoft.OpenApi.Models;
 using Library.WebApi.Helpers;
 using Library.WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAutoMapper(config =>
-{
-    config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-    config.AddProfile(new AssemblyMappingProfile(typeof(ILibraryDbContext).Assembly));
-});
+builder.Services.AddConfiguredAutoMapper();
 
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration.GetConnectionString("MsSql"));
@@ -31,16 +24,6 @@ builder.Services.AddConfiguredSwagger();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
 builder.Services.AddHttpContextAccessor();
-
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowAll", policy =>
-//    {
-//        policy.AllowAnyHeader();
-//        policy.AllowAnyMethod();
-//        policy.AllowAnyOrigin();
-//    });
-//});
 
 var app = builder.Build();
 

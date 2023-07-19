@@ -5,7 +5,7 @@ using System.Security.Claims;
 
 namespace Library.WebApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public abstract class BaseController: ControllerBase
     {
         private IMediator? _mediator;
